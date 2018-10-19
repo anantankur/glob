@@ -1,7 +1,14 @@
 <% include ./partials/header %>
 
 	<div class="main container">
-	<article class="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+	
+
+
+
+      <form action="/signin" method="post">
+
+
+        <article class="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
         <main class="pa4 black-80">
           <div class="measure">
             <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
@@ -12,7 +19,7 @@
                 <input
                   class="pa2 input-reset ba bg-transparent w-100"
                   type="email"
-                  name="email-address"
+                  name="email"
                   id="email-address"
                 />
               </div>
@@ -26,12 +33,25 @@
                 />
               </div>
             </fieldset>
-            <div class="">
-              <a href = "/loggedIn">signin</a>
+            
+
+            <div>
+              <input
+                class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                type="submit"
+                value="Sign in"
+              />
             </div>
           </div>
         </main>
       </article>
+
+              
+      </form>
+
+
+
+
       </div>
 
 <% include ./partials/footer %>

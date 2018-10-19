@@ -54,16 +54,23 @@ app.get('/blogs/admin', (req, res) => {
 	res.render('login')
 });
 
-// loggedIn Route
-app.get('/loggedIn', function(req, res){
-  global.isSignedIn = true
-  res.redirect('/blogs');
-});
-
 //logout route
 app.get('/logout', (req, res) => {
   global.isSignedIn = false;
   res.redirect('/blogs');
+})
+
+//verification
+app.post('/signin', (req, res, next) => {
+
+  if (req.body.email === "html@css.js" && req.body.password === "superman") {
+    global.isSignedIn = true
+    res.redirect('/blogs');
+  } else {
+    global.isSignedIn = false
+    res.redirect('/blogs/admin');
+  }
+  
 })
 
 // Create Route
