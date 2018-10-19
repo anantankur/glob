@@ -20,7 +20,22 @@ var blogSchema = new mongoose.Schema({
 });
 var Blog = mongoose.model('Blog', blogSchema);
 
+//check if someone is logged in
 global.isSignedIn = false;
+
+// admin username and password
+let mail = process.env.EMAIL;
+let pass = process.env.PASSWORD;
+
+
+app.use(function(req, res, next) {
+    if (!req.user) {
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
+    }
+    next();
+});
 
 
 // RESTful Routes
@@ -46,7 +61,11 @@ app.get('/blogs', function(req, res){
 
 // New Route
 app.get('/blogs/new', function(req, res){
-  res.render('new');
+  if (isSignedIn) {
+    res.render('new');
+  } else {
+    res.render('notlogged');
+  }
 });
 
 //login route
@@ -63,7 +82,7 @@ app.get('/logout', (req, res) => {
 //verification
 app.post('/signin', (req, res, next) => {
 
-  if (req.body.email === "html@css.js" && req.body.password === "superman") {
+  if (req.body.email === mail && req.body.password === pass) {
     global.isSignedIn = true
     res.redirect('/blogs');
   } else {
@@ -75,8 +94,9 @@ app.post('/signin', (req, res, next) => {
 
 // Create Route
 app.post('/blogs', function(req, res){
-  req.body.blog.body = req.sanitize(req.body.blog.body);
-  Blog.create(req.body.blog, function(err, newBlog){
+  if (isSignedIn) {
+    req.body.blog.body = req.sanitize(req.body.blog.body);
+    Blog.create(req.body.blog, function(err, newBlog){
     if(err){
       console.log(err);
       res.render('new');
@@ -84,6 +104,11 @@ app.post('/blogs', function(req, res){
       res.redirect('/blogs');
     }
   });
+  } else {
+    console.log("error");
+    res.render('notlogged');
+  }
+  
 });
 
 // Show Route

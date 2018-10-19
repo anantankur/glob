@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  "author": "C C Darshan Thimmaiah",
-  "license": "ISC",
+  "author": "",
+  "license": "",
   "dependencies": {
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
