@@ -20,12 +20,18 @@ var blogSchema = new mongoose.Schema({
 });
 var Blog = mongoose.model('Blog', blogSchema);
 
+global.isSignedIn = false;
+
 
 // RESTful Routes
 app.get('/', function(req, res){
   res.redirect('/blogs');
 });
 
+// RESTful Routes
+app.get('/', function(req, res){
+  res.redirect('/blogs');
+});
 
 // Index Route
 app.get('/blogs', function(req, res){
@@ -43,9 +49,22 @@ app.get('/blogs/new', function(req, res){
   res.render('new');
 });
 
+//login route
 app.get('/blogs/admin', (req, res) => {
 	res.render('login')
 });
+
+// loggedIn Route
+app.get('/loggedIn', function(req, res){
+  global.isSignedIn = true
+  res.redirect('/blogs');
+});
+
+//logout route
+app.get('/logout', (req, res) => {
+  global.isSignedIn = false;
+  res.redirect('/blogs');
+})
 
 // Create Route
 app.post('/blogs', function(req, res){
