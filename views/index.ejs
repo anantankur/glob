@@ -1,0 +1,32 @@
+<% include ./partials/header %>
+<div class="ui main text container">
+  <div class="ui huge header">Blog-App</div>
+  <div class="ui top attached segment">
+    <div class="ui divided items">
+      <% blogs.forEach(function(el){ %>
+        <div class="item">
+          <div class="image">
+              <img src="<%= el.image %>">
+          </div>
+          <div class="content">
+              <a class="header" href="/blogs/<%= el._id %>"><%= el.title %></a>
+              <div class="meta">
+                  <span><%= el.created.toDateString() %></span>
+              </div>
+              <div class="descrption">
+                  <p><%- el.body.substring(0, 100) %>...</p>
+              </div>
+              <div class="extra">
+                  <a class="ui floated basic violet button" href="/blogs/<%= el._id %>">
+                    Read More
+                    <i class="right chevron icon"></i>
+                  </a>
+              </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</div>
+
+<% include ./partials/footer %>
